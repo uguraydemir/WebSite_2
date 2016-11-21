@@ -1,0 +1,38 @@
+﻿@model WebSite_2.Models.ArticleModels.ArticleModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "CreateArticle";
+}
+<style>
+
+</style>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<div class="container">
+    @using (Html.BeginForm(""))
+    {
+
+        @Html.TextBoxFor(model => model.Tittle, new { @class = "form-control", @placeholder = "Tittle..." })
+
+        @Html.TextAreaFor(model => model.Content, new { @id = "ContentArea" })
+
+
+        <div class="form-control" name="CatName">
+            @foreach (var cat in ViewBag.CategoryList)
+            {
+                <label><input type="checkbox" name="catName" value="@cat.ArticleCategoryID" />@cat.CatName</label>
+            }
+        </div>
+        <input type="submit" value="Submit" class="form-control" />
+    }
+</div>
+
+<script src="~/Scripts/tinymce/tinymce.js"></script>
+<script>
+
+    tinyMCE.init({
+        selector: "textarea",
+        height: 500
+        //auto_focus: "textarea"
+    });
+
+</script>

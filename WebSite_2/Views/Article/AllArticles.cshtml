@@ -1,0 +1,18 @@
+﻿@model IEnumerable<WebSite_2.Models.ArticleModels.ArticleModel>
+@{
+    ViewBag.Title = "AllArticles";
+}
+
+
+@foreach (var art in Model)
+{
+    foreach (var cat in art.Category)
+    {
+        
+        <span>@cat.CatName</span>
+    }
+    @Html.Raw(art.Content)
+
+
+
+}

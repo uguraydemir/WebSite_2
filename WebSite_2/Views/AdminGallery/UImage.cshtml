@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "UImage";
+}
+<style>
+    .prev{
+        max-height : 400px;
+        max-width : 25%;
+    }
+</style>
+<input type="file" class="file" />
+<div class="upload-preview"></div>
+
+<script src="~/Scripts/jquery-3.1.1.js"></script>
+<script>
+    $(document).ready(function () {
+        var preview = $(".upload-preview");
+
+        $(".file").change(function (event) {
+            var input = $(event.currentTarget);
+            var file = input[0].files[0];
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                image_base64 = e.target.result;
+                preview.append("<img class='prev' src='" + image_base64 + "'/>");
+            };
+            reader.readAsDataURL(file);
+        });
+    });
+
+</script>

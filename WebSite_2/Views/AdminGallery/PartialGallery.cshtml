@@ -1,0 +1,22 @@
+﻿@model List<WebSite_2.Models.ImageModels.Image>
+
+<style>
+    .imageContainer{
+        width : 33%;
+        height : 400px;
+        display : inline-block;
+    }
+    .imageContainer img{
+        /*max-width : 100%!important;*/
+        max-height : 400px;
+    }
+</style>
+
+
+
+
+
+@foreach(var img in Model)
+{
+    <div class="imageContainer"><img src="/Images/@img.Src" class="col-md-12" name="@img.Name" data-id="@img.ImageID"/></div>
+}

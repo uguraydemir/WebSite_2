@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "UImage3";
+}
+
+
+
+
+
+
+
+<style>
+    .prev {
+        max-height: 400px;
+        max-width: 25%;
+    }
+</style>
+<input type="file" class="file" />
+<input type="button" class="submitBtn" value="Submit" />
+
+<div class="upload-preview"></div>
+
+<link href="~/Content/materialize/css/materialize.css" rel="stylesheet" />
+<script src="~/Scripts/materialize/materialize.js"></script>
+<script src="~/Scripts/jquery-3.1.1.js"></script>
+<script>
+    $(document).ready(function () {
+        var preview = $(".upload-preview");
+        var fileInput = $(".file");
+        $(".file").change(function (event) {
+            var input = $(event.currentTarget);
+            var file = input[0].files[0];
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                image_base64 = e.target.result;
+                preview.append("<img class='prev' src='" + image_base64 + "'/>");
+            };
+            reader.readAsDataURL(file);
+        });
+    });
+
+
+    $(".submitBtn").on("click", function () {
+        if($(".file").has("img"))
+        {
+            $.ajax({
+                url: "/AdminGallery/UploadImage",
+                type: 'POST',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    $("#uploadInput").val("");
+                    $("#uploadGif").remove();
+                    if (data.Duplicate == false) {
+                        $("ul.uploadedImage").append("<li><img src='/Images/" + data.Src + "' data-name='" + data.Name + data.ext + "'/>" + data.Name + "</li>");
+
+                    }
+                    else {
+
+                        var $toastContent = $('<span>I am toast content</span>');
+                        Materialize.toast($toastContent, 5000);
+
+
+                    }
+                }
+            });
+        }
+    });
+</script>
